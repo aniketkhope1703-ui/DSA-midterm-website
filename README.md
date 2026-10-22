@@ -38,10 +38,10 @@ No build tools or heavy dependencies required! Simply clone and run with any lig
 
 ```bash
 # Clone the repository
-git clone https://github.com/aniketkhope1703-ui/SortFlow-LinkedList-Visualizer.git
+git clone https://github.com/aniketkhope1703-ui/DSA-midterm-website.git
 
 # Navigate into the folder
-cd SortFlow-LinkedList-Visualizer
+cd DSA-midterm-website
 
 # Start local server (Python 3)
 python -m http.server 8000
