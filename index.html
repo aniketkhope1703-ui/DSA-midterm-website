@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SortFlow — Merge Sort & Linked List Algorithm Visualizer</title>
+  <meta name="description" content="A modern, highly interactive, and visually stunning educational website that teaches Sorting a Linked List using Merge Sort alongside Tortoise & Hare, Merging Two Sorted Lists, and Reversing Linked Lists.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header Bar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <div class="brand-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="6" cy="6" r="3"></circle>
+          <circle cx="18" cy="18" r="3"></circle>
+          <path d="M6 9v3a4 4 0 0 0 4 4h4"></path>
+          <polyline points="15 13 18 16 15 19"></polyline>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-title">SortFlow</span>
+        <span class="brand-subtitle">Linked List Algorithm Studio</span>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" id="algorithmTabs">
+      <button class="nav-tab active" data-algo="merge_sort" id="tabMergeSort">
+        <span class="tab-badge">Main</span>
+        <span class="tab-label">Merge Sort</span>
+      </button>
+      <button class="nav-tab" data-algo="find_middle" id="tabFindMiddle">
+        <span class="tab-badge bonus">Bonus 1</span>
+        <span class="tab-label">Find Middle</span>
+      </button>
+      <button class="nav-tab" data-algo="merge_two_sorted" id="tabMergeTwo">
+        <span class="tab-badge bonus">Bonus 2</span>
+        <span class="tab-label">Merge 2 Lists</span>
+      </button>
+      <button class="nav-tab" data-algo="reverse_list" id="tabReverse">
+        <span class="tab-badge bonus">Bonus 3</span>
+        <span class="tab-label">Reverse List</span>
+      </button>
+    </nav>
+
+    <!-- Header Actions (Speed & Theme) -->
+    <div class="nav-actions">
+      <!-- Speed Slider -->
+      <div class="speed-control-group" title="Adjust playback animation speed">
+        <label for="speedSlider" class="control-label">Speed:</label>
+        <input type="range" id="speedSlider" min="0.5" max="3" step="0.5" value="1" class="speed-range">
+        <span class="speed-badge" id="speedValBadge">1x</span>
+      </div>
+
+      <!-- Theme Switcher -->
+      <button class="btn btn-icon theme-btn" id="themeToggleBtn" aria-label="Toggle Dark/Light Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <span>Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Workspace (Dual Pane Layout) -->
+  <main class="workspace-grid">
+    
+    <!-- LEFT PANEL: Theory, Complexity & Code Execution -->
+    <section class="panel panel-left" id="theoryPanel">
+      
+      <!-- Problem Info Card -->
+      <div class="glass-card problem-card">
+        <div class="problem-header">
+          <div class="title-with-pill">
+            <h1 class="problem-title" id="problemTitle">Merge Sort on Linked List</h1>
+            <span class="pill pill-primary">Algorithm Deep Dive</span>
+          </div>
+          <div class="complexity-pills">
+            <span class="pill pill-time" id="timeComplexityBadge">Time: O(N log N)</span>
+            <span class="pill pill-space" id="spaceComplexityBadge">Space: O(log N)</span>
+          </div>
+        </div>
+        <div class="problem-description" id="problemDescription">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- Interactive Code Execution Block -->
+      <div class="glass-card code-card">
+        <div class="code-card-header">
+          <div class="code-header-left">
+            <span class="code-title">Source Implementation</span>
+            <span class="sync-indicator" title="Synchronous Line Highlighting Active">
+              <span class="dot-live"></span> Sync Active
+            </span>
+          </div>
+          <div class="code-header-right">
+            <div class="custom-select-wrapper">
+              <select id="langSelect" class="lang-dropdown" aria-label="Programming Language">
+                <option value="cpp">C++ (STL)</option>
+                <option value="java">Java 17</option>
+                <option value="python">Python 3</option>
+              </select>
+            </div>
+            <button class="btn btn-sm btn-ghost" id="copyCodeBtn" title="Copy code snippet">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copy</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="code-scroll-area" id="codeContainer">
+          <!-- Code table injected here -->
+        </div>
+      </div>
+
+      <!-- Collapsible Deep Dives & Edge Cases -->
+      <div class="accordions-container">
+        <div class="accordion-item open">
+          <button class="accordion-header">
+            <span class="acc-title">🧠 Algorithmic Insights & Deep Dive</span>
+            <svg class="acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-content" id="accordionContent1">
+            <!-- Dynamic Content -->
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span class="acc-title">🛡️ Critical Edge Cases & Invariants</span>
+            <svg class="acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="accordion-content" id="accordionContent2">
+            <!-- Dynamic Content -->
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- RIGHT PANEL: Visualizer Canvas & Controls -->
+    <section class="panel panel-right" id="visualizerPanel">
+
+      <!-- Interactive Input Bar -->
+      <div class="glass-card controls-bar">
+        <div class="input-controls-wrapper" id="inputControlsContainer">
+          <!-- Populated by JS (custom input field) -->
+        </div>
+        <div class="quick-actions-group">
+          <button class="btn btn-secondary" id="randomizeBtn" title="Generate random node values">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 3 21 3 21 8"></polyline>
+              <line x1="4" y1="20" x2="21" y2="3"></line>
+              <polyline points="21 16 21 21 16 21"></polyline>
+              <line x1="15" y1="15" x2="21" y2="21"></line>
+              <line x1="4" y1="4" x2="9" y2="9"></line>
+            </svg>
+            <span>Randomize</span>
+          </button>
+          <button class="btn btn-ghost" id="resetBtn" title="Reset to start">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 2v6h6"></path>
+              <path d="M3 13a9 9 0 1 0 3-7.7L3 8"></path>
+            </svg>
+            <span>Reset</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Execution Scrubber & Timeline Bar -->
+      <div class="glass-card timeline-card">
+        <div class="timeline-controls">
+          <button class="btn btn-icon btn-timeline" id="stepBackBtn" title="Step Backward">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="19 20 9 12 19 4 19 20"></polygon>
+              <line x1="5" y1="19" x2="5" y2="5"></line>
+            </svg>
+          </button>
+
+          <button class="btn btn-primary btn-play" id="playBtn" title="Play / Pause Animation">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5,3 19,12 5,21"></polygon>
+            </svg>
+            <span>Play</span>
+          </button>
+
+          <button class="btn btn-icon btn-timeline" id="stepForwardBtn" title="Step Forward">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="5 4 15 12 5 20 5 4"></polygon>
+              <line x1="19" y1="5" x2="19" y2="19"></line>
+            </svg>
+          </button>
+
+          <!-- Timeline scrubber slider -->
+          <div class="scrubber-wrapper">
+            <input type="range" id="stepScrubber" min="0" max="10" value="0" class="scrubber-range">
+            <div class="progress-track-bg">
+              <div class="progress-fill" id="stepProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="step-counter" id="stepCounterText">
+            Step 1 of 12
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic State Explanation Banner -->
+      <div class="glass-card explanation-banner">
+        <div class="explanation-icon-col">
+          <div class="icon-pulse">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="explanation-content-col">
+          <div class="stage-tag-row">
+            <span class="stage-badge" id="stageBadge">INITIALIZE</span>
+            <span class="helper-hint">Dynamic Execution Step</span>
+          </div>
+          <p class="explanation-text" id="explanationText">
+            Starting algorithm execution...
+          </p>
+        </div>
+      </div>
+
+      <!-- Dynamic Visualizer Canvas Area -->
+      <div class="glass-card canvas-card">
+        <div class="canvas-header">
+          <div class="canvas-title-group">
+            <span class="canvas-title">Interactive Linked List Canvas</span>
+            <span class="canvas-subtitle">Live pointer positions and node mutations</span>
+          </div>
+          <div class="canvas-legend">
+            <span class="legend-dot cyan"></span> Slow / L1 / Head
+            <span class="legend-dot indigo"></span> Fast / L2
+            <span class="legend-dot emerald"></span> Sorted / Base
+            <span class="legend-dot crimson"></span> Mid / Cut
+          </div>
+        </div>
+
+        <div class="canvas-viewport" id="visualizerCanvas">
+          <!-- Injected by visualizer.js -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-left">
+      <span>SortFlow Visualizer &bull; Linked List Merge Sort Laboratory</span>
+    </div>
+    <div class="footer-right">
+      <span>Built with Vanilla Web Technologies &bull; Clean Architecture</span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
